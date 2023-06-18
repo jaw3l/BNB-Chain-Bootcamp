@@ -41,6 +41,7 @@ bower_components
 
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
+build/bsc-*
 
 # Dependency directories
 node_modules/
@@ -133,3 +134,5 @@ dist
 .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/solidity
+
+config.js
