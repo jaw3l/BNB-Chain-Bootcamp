@@ -1,5 +1,5 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-// create a file at the root of your project and name it .env -- there you can set process variables
+// create a fi.le at the root of your project and name it .env -- there you can set process variables
 // like the mnemomic etc. Note: .env is ignored by git to keep your private information safe
 
 require('dotenv').config();
@@ -22,6 +22,7 @@ module.exports = {
       host: "127.0.0.1", // Localhost (default: none)
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
+      // gas: "6721975",
     },
     bscTestnet: {
       provider: () =>
@@ -53,7 +54,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "^0.8.4",
+      version: "0.8.4",
     },
   },
   db: {

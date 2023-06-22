@@ -23,11 +23,11 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@truffle/hdwallet-provider": "^1.4.2",
     "dotenv": "^9.0.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.2",
+    "@truffle/hdwallet-provider": "^1.2.3",
     "truffle": "^5.9.4"
   }
 }
