@@ -1,33 +1,22 @@
 {
-  "name": "bsc-starter-box",
-  "version": "1.0.0",
-  "description": "A sample Truffle project that allows developers to deploy to the BNB Smart Chain",
-  "main": "truffle-config.js",
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "truffle test",
-    "compile": "truffle compile",
-    "migrate": "truffle migrate",
-    "test:bsc": "truffle test --config=truffle-config.bsc.js --network ",
-    "compile:bsc": "truffle compile --config=truffle-config.bsc.js",
-    "migrate:bsc": "truffle migrate --config=truffle-config.bsc.js --network "
-  },
-  "repository": {},
-  "keywords": [
-    "BSC",
-    "BNB Smart Chain",
-    "BNB Chain"
-  ],
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
-    "dotenv": "^9.0.0"
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomiclabs/hardhat-truffle5": "^2.0.7",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "chai": "^4.3.7",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.6.1",
+    "hardhat": "^2.16.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.0",
+    "typechain": "^8.1.0"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.9.2",
-    "@truffle/hdwallet-provider": "^1.2.3",
-    "truffle": "^5.9.4"
+    "@openzeppelin/test-helpers": "^0.5.16"
   }
 }

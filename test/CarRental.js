@@ -1,4 +1,4 @@
-const CarRental = artifacts.require("CarRental.sol");
+const CarRental = artifacts.require("CarRental");
 
 contract("CarRental", accounts => {
   let carRental;
