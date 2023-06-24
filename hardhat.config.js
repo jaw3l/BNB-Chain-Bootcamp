@@ -19,7 +19,7 @@ module.exports = {
   },
   etherscan: {
     apiKey: {
-      bscTestnet: "8P8BPDH92S24VRQVTKSG48Y4HZ8TN4Y21I"
+      bscTestnet: process.env.BSC_TESTNET_API_KEY,
     }
   },
   solidity: {

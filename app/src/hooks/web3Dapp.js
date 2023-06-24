@@ -1,7 +1,8 @@
 import Web3 from 'web3';
 import RenterABI from '../contracts/CarRental.json';
+import contract from '../contracts';
 
-let renterContractAddress = '0x6BD76976592708f64D0344c057c2450b8D362389';
+let renterContractAddress = contract.address;
 let selectedAccount;
 let renterContract;
 let isInitialized = false;
@@ -46,13 +47,13 @@ export const login = async () => {
   }
 };
 
-export const register = async (name, _lastName) => {
+export const register = async (name, surname) => {
   if (!isInitialized) {
     await init();
   }
   try {
     let res = await renterContract.methods
-      .addUser(name, _lastName)
+      .addUser(name, surname)
       .send({ from: selectedAccount });
     return res;
   } catch (e) {
@@ -81,13 +82,13 @@ export const setOwner = async _newOwner => {
   }
 };
 
-export const addCar = async (name, url, rentFee, saleFee) => {
+export const addCar = async (brand, model, imageUrl, rentPrice, salePrice) => {
   if (!isInitialized) {
     await init();
   }
   try {
     let res = await renterContract.methods
-      .addCar(name, url, rentFee, saleFee)
+      .addCar(brand, model, imageUrl, rentPrice, salePrice)
       .send({ from: selectedAccount });
     return res;
   } catch (e) {
@@ -95,13 +96,13 @@ export const addCar = async (name, url, rentFee, saleFee) => {
   }
 };
 
-export const updateCarMetadata = async (id, name, imgUrl, rentFee, saleFee) => {
+export const updateCarMetadata = async (id, brand, model, imageUrl, rentPrice, salePrice) => {
   if (!isInitialized) {
     await init();
   }
   try {
     let res = await renterContract.methods
-      .updateCarMetadata(id, name, imgUrl, rentFee, saleFee)
+      .updateCarMetadata(id, brand, model, imageUrl, rentPrice, salePrice)
       .send({ from: selectedAccount });
     return res;
   } catch (error) {
@@ -239,7 +240,7 @@ export const getCarByStatus = async status => {
     await init();
   }
   try {
-    let res = await renterContract.methods.getCarByStatus(status).call();
+    let res = await renterContract.methods.getCarsByStatus(status).call();
     return res;
   } catch (error) {
     console.log(error);
