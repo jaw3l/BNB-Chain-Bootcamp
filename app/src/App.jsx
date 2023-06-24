@@ -4,7 +4,6 @@ import Information from "./components/Information";
 import Footer from "./components/Footer";
 import AdminDashboard from "./components/AdminDashboard";
 import Web3 from "web3";
-import { login, getUserAddress, getCarByStatus, getCar, getOwner } from "./hooks/web3Dapp"; // prettier-ignore
 import { register, login, getUserAddress, getCarsByStatus, getCar, getOwner } from "./hooks/web3Dapp"; // prettier-ignore
 
 import Header from "./components/Header";

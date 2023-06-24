@@ -2,31 +2,28 @@ import React from "react";
 import { checkOut, checkIn } from "../hooks/web3Dapp";
 import Web3 from "web3";
 
-const Cars = ({ id, brand, model, imageUrl, salePrice, rentPrice, carStatus, due }) => {
+const Cars = (props) => {
   const handleCheckOut = async () => {
-    const res = await checkOut(id);
-    console.log(res);
+    await checkOut(props.id);
   };
 
-  console.log(due);
-
   const handleCheckIn = async () => {
-    await checkIn(id);
+    await checkIn(props.id);
   };
 
   return (
     <div >
       <div >
         <div >
-          <img src={imageUrl}/>
+          <img src={props.imageUrl}/>
           <div >
             <span>
-              {brand} {model} - id: {id}
+              {props.brand} {props.model} - id: {props.id}
             </span>
             <h3 >
-              <p>Rent fee : {Web3.utils.fromWei(rentPrice)} </p>
-              <p>Sale fee: {Web3.utils.fromWei(salePrice)} </p>
-              <p>{carStatus === "0" ? "Available" : "Not Available"}</p>
+              <p>Rent fee : {Web3.utils.fromWei(props.rentPrice)} </p>
+              <p>Sale fee: {Web3.utils.fromWei(props.salePrice)} </p>
+              <p>{props.carStatus === "0" ? "Available" : "Not Available"}</p>
             </h3>
           </div>
           <div >
