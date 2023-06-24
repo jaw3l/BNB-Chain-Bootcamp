@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import Header from "./components/Header";
 import Cars from "./components/Cars";
 import Information from "./components/Information";
 import Footer from "./components/Footer";
 import AdminDashboard from "./components/AdminDashboard";
 import Web3 from "web3";
 import { login, getUserAddress, getCarByStatus, getCar, getOwner } from "./hooks/web3Dapp"; // prettier-ignore
+import { register, login, getUserAddress, getCarsByStatus, getCar, getOwner } from "./hooks/web3Dapp"; // prettier-ignore
 
+import Header from "./components/Header";
 
 import { ChakraProvider } from '@chakra-ui/react'
 import RegisterPage from "./components/RegisterPage";
@@ -18,14 +19,14 @@ const web3 = new Web3();
 function App() {
   const [address, setAddress] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [car, setCar] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [cars, setCars] = useState([]);
   const [name, setName] = useState({});
+  const [lastName, setLastName] = useState({});
   const [isAdmin, setIsAdmin] = useState(false);
   const [userCredit, setUserCredit] = useState("0");
   const [due, setDue] = useState(0);
-  const [isAvailable, setIsAvailable] = useState("You can rent a car!");
+  const [isAvailable, setIsAvailable] = useState("Can Rent");
   const [rideMins, setRideMins] = useState("0");
 
   const emptyAddress = "0x0000000000000000000000000000000000000000";
@@ -33,34 +34,31 @@ function App() {
   useEffect(() => {
     let handleInit = async () => {
       let user = await login();
+      // If the user has an address, they are logged in
       if (user.address !== emptyAddress) {
         if (user.name) {
           setLoggedIn(true);
-          setUserCredit(web3.utils.fromWei(user.balance, "ether"));
+          setUserCredit(web3.utils.fromWei(user.balance, "ether").toString());
         }
-        console.log(user)
-        setFirstName(user.name);
-        setLastName(user.surname);
-        setAddress(user.walletAddress);
-        let userDue = Web3.utils.fromWei(user.debt, "ether");
-        setDue(Number(userDue));
-
+        let userDue = Web3.utils.fromWei(String(user.debt), "ether").toString();
+        setDue(userDue);
+        setUserName(user.name);
+        
         let address = await getUserAddress();
         let owner = await getOwner();
-        console.log(owner.toLowerCase())
+
         if (address === owner.toLowerCase()) {
           setIsAdmin(true);
         }
         
         let carArray = [];
-        // console.log(carArray);
-        let carByStatus = await getCarByStatus(0);
-        carArray.push(...carByStatus);
+        let carsByStatus = await getCarsByStatus(0);
+        carArray.push(...carsByStatus);
         if (user.rentedCarId !== "2") {
-          let rentedCar = await getCar(Number(user.rentedCarId));
+          const rentedCar = await getCar(Number(user.rentedCarId));
           carArray.push(rentedCar);
         }
-        setCar(carArray);
+        setCars(carArray);
 
         if (user.rentedCarId !== "2") {
           let rentedCar = await getCar(Number(user.rentedCarId));
@@ -86,9 +84,11 @@ function App() {
     }
   }, []);
 
-  const handleRegistration = () => {
-    setLoggedIn(true);
-    localStorage.setItem("loggedIn", true);
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
   };
 
   useEffect(() => {
@@ -100,7 +100,7 @@ function App() {
   return (
     <>
       <ChakraProvider>
-        <NavBar name={firstName} lastName={lastName} address={address}/>
+        <NavBar name={userName} lastName={lastName} address={address}/>
         <div>
           {loggedIn ? (
             <div>
@@ -111,19 +111,17 @@ function App() {
                 isAvailable={isAvailable}
               />
               <div>
-                {car.length > 0 ? (
-                  car.map((car) => {
+                {cars.length > 0 ? (
+                  cars.map((car) => {
                     return (
                       <Cars
-                        key={car.id}
+                        id={car.id}
                         brand={car.brand}
                         model={car.model}
-                        id={car.id}
                         image={car.imageUrl}
                         rentFee={car.rentPrice}
                         saleFee={car.salePrice}
                         carStatus={car.status}
-                        due={due}
                       />
                     );
                   })
