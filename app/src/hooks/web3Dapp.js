@@ -235,7 +235,7 @@ export const getCar = async id => {
   }
 };
 
-export const getCarByStatus = async status => {
+export const getCarsByStatus = async status => {
   if (!isInitialized) {
     await init();
   }

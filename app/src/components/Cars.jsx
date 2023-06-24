@@ -12,11 +12,11 @@ const Cars = (props) => {
   };
 
   return (
-    <div >
-      <div >
-        <div >
+    <div>
+      <div>
+        <div>
           <img src={props.imageUrl}/>
-          <div >
+          <div>
             <span>
               {props.brand} {props.model} - id: {props.id}
             </span>
@@ -26,18 +26,16 @@ const Cars = (props) => {
               <p>{props.carStatus === "0" ? "Available" : "Not Available"}</p>
             </h3>
           </div>
-          <div >
+          <div>
             <button
-              disabled={due > 0 ? true : false}
-              onClick={() => handleCheckOut(id)}
-            >
-              Check In
-            </button>
-            <button
-              disabled={due > 0 ? true : false}
-              onClick={() => handleCheckIn()}
+              onClick={() => handleCheckOut(props.id)}
             >
               Check Out
+            </button>
+            <button
+              onClick={() => handleCheckIn()}
+            >
+              Check In
             </button>
           </div>
         </div>

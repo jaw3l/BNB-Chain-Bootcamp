@@ -8,7 +8,7 @@ import { register, login, getUserAddress, getCarsByStatus, getCar, getOwner } fr
 
 import Header from "./components/Header";
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Input, Button, Box, Center, Card, FormControl, FormLabel, Flex, CardBody } from '@chakra-ui/react'
 import RegisterPage from "./components/RegisterPage";
 import LoginPage from "./components/LoginPage";
 import NavBar from "./components/NavBar";
@@ -90,6 +90,19 @@ function App() {
     setLastName(event.target.value);
   };
 
+  const handleRegister = async (event) => {
+    event.preventDefault();
+    try {
+      let res = await register(name, lastName);
+      if (res) {
+        setLoggedIn(true);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (due !== 0) {
       setIsAvailable("You have to pay your debt");
@@ -130,8 +143,27 @@ function App() {
               </div>
             </div>
           ) : (
-            // <LoginPage />
-            <RegisterPage onRegistration={handleRegistration} />
+            <Center minHeight="50vh">
+              <Flex align="center" justify="center">
+                <Card maxWidth="md">
+                  <CardBody>
+                    <Box textAlign="center">
+                      <FormControl mb={4}>
+                        <FormLabel>First Name:</FormLabel>
+                        <Input onChange={handleNameChange} />
+                      </FormControl>
+                      <FormControl mb={4}>
+                        <FormLabel>Last Name:</FormLabel>
+                        <Input onChange={handleLastNameChange} />
+                      </FormControl>
+                      <Button colorScheme="blue" onClick={handleRegister}>
+                        Register
+                      </Button>
+                    </Box>
+                  </CardBody>
+                </Card>
+              </Flex>
+            </Center>
           )}
         </div>
         {isAdmin && <AdminDashboard />}
